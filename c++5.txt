@@ -1,0 +1,206 @@
+#include<iostream>
+using namespace std;
+class ACC
+{
+string name;
+double ACCNO;
+public:
+void setName(string n){
+name = n;
+}
+void setACCNO(double A){
+ACCNO = A;
+}
+string getname(){
+return name;
+}
+double getACCNO(){
+return ACCNO;
+}
+};
+class SavingACC : public ACC
+
+{
+double Deposit;
+double Balance = 500;
+public:
+void setDeposit(double D){
+Deposit = D;
+}
+void setBalance(double B){
+Balance = B;
+}
+double getDeposit(){
+return Deposit;
+}
+double getBalance(){
+return Balance;
+}
+void Interest(int money)
+{
+float Sertax = 2;
+Balance = Balance - Sertax;
+}
+void Withdrawl(){
+int money;
+cout<<"Enter the amount of Money : ";
+cin>>money;
+if(Balance - money > 50 ){
+if(Balance < 500){
+cout<<"We are imposing penality for low minimum balance"<<endl<<endl;
+int plty = 50;
+Balance = Balance - (money + plty);
+Interest(money);
+cout<<"Transaction is successfully"<<endl;
+
+}
+else{
+Balance =Balance - money;
+Interest(money);
+cout<<"The Transaction is successfully"<<endl;
+}
+}
+else
+cout<<"Transaction cannot be done"<<endl;
+}
+void Deposit1(){
+int money;
+cout<<"Enter the amount of Money : ";
+cin>>money;
+Balance =Balance + money;
+}
+void Display(){
+cout<<"\n\nBalance : "<<Balance<<endl;
+cout<<"The Minimum Balance : 500\n\n"<<endl;
+}
+};
+class CurrACC : public ACC
+{
+double Deposit;
+double Balance = 500;
+public:
+void setDeposit(double D){
+Deposit = D;
+}
+void setBalance(double B){
+Balance = B;
+}
+
+double getDeposit(){
+return Deposit;
+}
+double getBalance(){
+return Balance;
+}
+void Cheque(){
+int money;
+string Bname;
+cout<<"Enter the name of Cheque receiver : ";
+cin>>Bname;
+cout<<"Enter the amount of Money : ";
+cin>>money;
+if(Balance - money > 50 ){
+if(Balance == 0)
+cout<<"Transaction cannot be done"<<endl;
+else{
+Balance = Balance - money;
+cout<<"The Transaction is successfully"<<endl;
+cout<<endl;
+Display1(Bname,money);
+}
+}
+}
+void Deposit1(){
+int money;
+cout<<"Enter the amount of Money : ";
+cin>>money;
+Balance = Balance + money;
+}
+void Display(){
+cout<<"\n\nBalance : "<<Balance<<endl;
+cout<<"The Minimum Balance : 500\n\n"<<endl;
+
+}
+void Display1(string Bname, int money){
+cout<<"Cheque receiver : "<<Bname<<endl;
+cout<<"Money : "<<money<<endl;
+cout<<"Balance : "<<Balance<<endl;
+}
+};
+int main(){
+int choice;
+cout<<"Enter the type of the account "<<endl
+<<"1. Current"<<endl
+<<"2. Saving"<<endl
+<<"Choice : ";
+cin>>choice;
+cout<<"\n\n\n";
+switch (choice){
+case 1:{
+CurrACC c1;
+string h;
+cout<<"Enter the name of the Account holder:";
+cin>>h;
+c1.setName(h);
+double k;
+cout<<"Account No:";
+cin>>k;
+c1.setACCNO(k);
+cout<<"\n\nAccount Name : "<<c1.getname()<<endl;
+cout<<"Account Number : "<<c1.getACCNO()<<endl;
+cout<<"Balance : "<<c1.getBalance();
+do{
+cout<<"\n\n1. Deposit"<<endl
+<<"2. Withdrawl through Cheque"<<endl
+<<"3. Exit"<<endl
+
+<<"Enter the choice : ";
+cin>>choice;
+switch (choice){
+case 1:
+c1.Deposit1();
+c1.Display();
+break;
+case 2:
+c1.Cheque();
+c1.Display();
+break;
+}
+}while(choice != 3);
+break;
+}
+case 2:{
+SavingACC s1;
+string h;
+cout<<"Enter the name of the Account holder:";
+cin>>h;
+s1.setName(h);
+double k;
+cout<<"Account No:";
+cin>>k;
+s1.setACCNO(k);
+cout<<"\n\nAccount Name : "<<s1.getname()<<endl;
+cout<<"Account Number : "<<s1.getACCNO()<<endl;
+cout<<"Balance : "<<s1.getBalance();
+do{
+cout<<"\n\n1. Deposit"<<endl
+<<"2. Withdrawl"<<endl
+<<"3. Exit"<<endl
+<<"Enter the choice : ";
+cin>>choice;
+
+switch (choice){
+case 1:
+s1.Deposit1();
+s1.Display();
+break;
+case 2:
+s1.Withdrawl();
+s1.Display();
+break;
+}
+}while(choice != 3);
+break;
+}
+}
+}
